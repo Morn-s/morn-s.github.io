@@ -1,0 +1,360 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>xssong17</title>
+<meta name="description" content="我等着，等着你" />
+<link rel="shortcut icon" href="https://xssong17.github.io/favicon.ico?v=1736691192310">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://xssong17.github.io/styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://xssong17.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://xssong17.github.io/images/avatar.png?v=1736691192310" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">xssong17</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#vps">vps</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF">服务端</a>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">配置文件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-linux">客户端-linux</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC">安装脚本</a></li>
+<li><a href="#%E5%AE%A2%E6%88%B7%E7%AB%AFwindows">客户端windows</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://xssong17.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Hysteria2安装记录（未完待续）</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2024-12-12 / 3 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h1 id="vps">vps</h1>
+<p>vps购买来源：https://www.vpsgo.com/racknerd-bf-2024.html<br>
+系统选择：AlmaLinux 8 64 位<br>
+<code>防火墙一定一定要开放后续使用的端口！！！</code></p>
+<h1 id="服务端">服务端</h1>
+<h2 id="配置文件">配置文件</h2>
+<pre><code>cat &lt;&lt; EOF &gt; /etc/hysteria/config.yaml
+listen: :443 #监听端口
+
+#有域名，使用CA证书 
+#acme:
+#  domains:
+#    - test.heybro.bid #你的域名，需要先解析到服务器ip
+#  email: augustdoit@gmail.com
+
+#使用自签名证书
+tls:
+  cert: /etc/hysteria/server.crt
+  key: /etc/hysteria/server.key
+
+auth:
+  type: password
+  password: xxxxxxxxxxx
+
+#伪装
+masquerade:
+  type: proxy
+  proxy:
+    url: https://bing.com/ #伪装网址
+    rewriteHost: true
+EOF
+</code></pre>
+<h1 id="客户端-linux">客户端-linux</h1>
+<p>下载对应版本：https://github.com/apernet/hysteria/releases/tag/app%2Fv2.6.0<br>
+后续命令根据下载的版本进行适当调整<br>
+1、赋予权限</p>
+<pre><code>chmod +x hysteria-linux-amd64
+</code></pre>
+<p>2、可执行文件同级目录下创建配置文件<code>config.yaml</code>，样例如下</p>
+<pre><code>server: xxx.xx.xx.xx:443 #服务器:端口
+
+auth: xxxxxx # 服务端配置的password
+
+fastOpen : true
+lazy : true
+
+bandwidth:
+  up: 20 mbps
+  down: 90 mbps
+  
+tls:
+  sni: bing.com
+  insecure: true
+
+socks5:
+  listen: 127.0.0.1:19000
+http:
+  listen: 127.0.0.1:7890
+
+
+</code></pre>
+<p>3、启动服务</p>
+<pre><code>./hysteria-linux-amd64
+</code></pre>
+<h1 id="安装脚本">安装脚本</h1>
+<p><code>install.sh</code></p>
+<pre><code>#!/bin/bash
+
+# 添加环境变量(root权限)
+cat&gt;/etc/profile.d/hysteria2.sh&lt;&lt;EOF
+# 开启系统代理
+proxy_on() {
+	export http_proxy=http://127.0.0.1:7890
+	export https_proxy=http://127.0.0.1:7890
+	export no_proxy=127.0.0.1,localhost
+    	export HTTP_PROXY=http://127.0.0.1:7890
+    	export HTTPS_PROXY=http://127.0.0.1:7890
+ 	export NO_PROXY=127.0.0.1,localhost
+	echo -e &quot;\033[32m[√] 已开启代理\033[0m&quot;
+}
+
+# 关闭系统代理
+proxy_off(){
+	unset http_proxy
+	unset https_proxy
+	unset no_proxy
+  	unset HTTP_PROXY
+	unset HTTPS_PROXY
+	unset NO_PROXY
+	echo -e &quot;\033[31m[×] 已关闭代理\033[0m&quot;
+}
+EOF
+
+echo -e &quot;请执行以下命令加载环境变量: source /etc/profile.d/hysteria2.sh\n&quot;
+echo -e &quot;请执行以下命令开启系统代理: proxy_on\n&quot;
+echo -e &quot;若要临时关闭系统代理，请执行: proxy_off\n&quot;
+</code></pre>
+<p><code>uninstall.sh</code></p>
+<pre><code>#!/bin/bash
+
+# 关闭hysteria服务
+PID_NUM=`ps -ef | grep [h]ysteria | wc -l`
+PID=`ps -ef | grep [h]ysteria | awk '{print $2}'`
+if [ $PID_NUM -ne 0 ]; then
+	kill -9 $PID
+fi
+
+# 清除环境变量
+&gt; /etc/profile.d/hysteria2.sh
+
+echo -e &quot;\n服务关闭成功，请执行以下命令关闭系统代理：proxy_off\n&quot;
+
+</code></pre>
+<h1 id="客户端windows">客户端windows</h1>
+<p>待续</p>
+<h1 id="其他">其他</h1>
+<p>screen 在AlmaLinux上的安装</p>
+<pre><code>yum install epel-release
+yum install screen
+</code></pre>
+<p>网络检查：<br>
+Iperf3测速教程<br>
+https://juejin.cn/post/7124583779851010085</p>
+<p>参考资料：<br>
+https://www.linuxmi.com/almalinux-centos.html<br>
+https://augustdoit.men/Hysteria2/<br>
+https://v2.hysteria.network/zh/docs/getting-started/Installation/</p>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://xssong17.github.io/post/napcat-docker-an-zhuang-guo-cheng-ji-lu/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  napcat-docker安装过程记录
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://xssong17.github.io/post/an-zhuo-11-shou-ji-fei-rootwei-xin-xiao-cheng-xu-zhua-bao-vmoshttpcanary/">
+                <h3 class="post-title">
+                  安卓11手机+非root+微信小程序抓包（vmos+HttpCanary）
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://xssong17.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
